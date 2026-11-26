@@ -115,10 +115,8 @@ button {
   letter-spacing: 0.08em;
 }
 
-.hud-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--ice);
+.hud-mark {
+  flex: none;
 }
 
 .hud-name em {
@@ -1404,5 +1402,25 @@ button {
 
   .cinema-stage {
     padding: 16px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hud-bar {
+    padding-inline: 10px;
+  }
+
+  .hud-brand {
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .hud-nav {
+    gap: 4px;
+  }
+
+  .hud-link {
+    font-size: 10.5px;
+    letter-spacing: 0.02em;
   }
 }
