@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PORTFOLIO · 杨于衡 Yang Yuheng | Stage Design · Research · Sculpture</title>
+  <meta name="description" content="杨于衡（Yang Yuheng）个人作品集网站：01 近期参与设计制作剧目 · 02 奖项与研究 · 03 雕塑与装置 · 04 绘画与速写。" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 顶部极简建筑坐标框线 -->
+  <header class="hud-bar">
+    <a href="#prologue" class="hud-brand">
+      <span class="hud-dot"></span>
+      <span class="hud-name">杨于衡 <em>YANG YUHENG</em></span>
+    </a>
+
+    <nav class="hud-nav" id="hud-nav" aria-label="作品集章节导航">
+      <a href="#prologue" class="hud-link active" data-sec="prologue"><span>00</span> INFO</a>
+      <a href="#ch-01" class="hud-link" data-sec="ch-01"><span>01</span> STAGE</a>
+      <a href="#ch-02" class="hud-link" data-sec="ch-02"><span>02</span> RESEARCH</a>
+      <a href="#ch-03" class="hud-link" data-sec="ch-03"><span>03</span> SCULPTURE</a>
+      <a href="#ch-04" class="hud-link" data-sec="ch-04"><span>04</span> DRAWING</a>
+    </nav>
+
+    <div class="hud-right">
+      <a href="assets/Yuheng-Yang-Portfolio.pdf" target="_blank" rel="noopener" class="hud-pdf-link">
+        PORTFOLIO PDF <span>↗</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================================================================
+         00 / PROLOGUE & PERSONAL INFORMATION (Pages 01–02)
+         =================================================================== -->
+    <section class="prologue" id="prologue">
+      <div class="prologue-backdrop" aria-hidden="true">
+        <div class="backdrop-slide active" style="background-image:url('assets/gallery/yy-023-01.webp')"></div>
+        <div class="backdrop-slide" style="background-image:url('assets/stage-lord-zhang.webp')"></div>
+        <div class="backdrop-slide" style="background-image:url('assets/aoyu.webp')"></div>
+        <div class="backdrop-vignette"></div>
+      </div>
+
+      <div class="frame prologue-inner">
+        <div class="prologue-top-meta">
+          <span>PORTFOLIO / 2026</span>
+          <span>GUANGZHOU</span>
+        </div>
+
+        <div class="prologue-hero-type">
+          <div class="display-word" aria-label="PORTFOLIO">PORTFOLIO</div>
+          <p class="discipline-line">STAGE DESIGN &nbsp;·&nbsp; RESEARCH &nbsp;·&nbsp; SCULPTURE</p>
+          <h1 class="artist-signature">
+            <span class="sig-zh">杨于衡</span>
+            <span class="sig-en">Yang Yuheng</span>
+          </h1>
+        </div>
+
+        <!-- Page 02: 个人信息四行极简建筑表 -->
+        <div class="personal-ledger-wrap">
+          <div class="ledger-caption">个人信息 &nbsp;/&nbsp; PERSONAL INFORMATION</div>
+          <div class="personal-ledger" id="personal-ledger"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         01 / RECENT STAGE DESIGN WORKS 近期参与设计制作剧目 (Pages 03–25 & AOYU)
+         =================================================================== -->
+    <section class="chapter" id="ch-01">
+      <div class="frame">
+        <div class="chapter-monument reveal">
+          <span class="ch-num">01</span>
+          <div class="ch-titles">
+            <h2>近期参与设计制作剧目</h2>
+            <p>Recent Stage Design Works</p>
+          </div>
+        </div>
+
+        <!-- Page 03: 参与剧目矩阵 Project List -->
+        <div class="matrix-block reveal">
+          <div class="sub-bar">
+            <span>PROJECT LIST · 参与剧目矩阵</span>
+            <span>01 / GENRE INDEX</span>
+          </div>
+          <div class="project-matrix" id="project-matrix"></div>
+        </div>
+
+        <!-- 重点剧目深度拆解 A：《驻藏·张大人》(Pages 04–11) -->
+        <div class="monograph-block reveal" id="lord-zhang-root"></div>
+
+        <!-- 重点剧目深度拆解 B：《水墨与丝竹的对话3：鳌鱼》(Portfolio Chapter AOYU) -->
+        <div class="monograph-block reveal" id="aoyu-root"></div>
+
+        <!-- Pages 12–25：14 部剧目与展览剧照画廊 -->
+        <div class="stage-repertoire-block reveal">
+          <div class="repertoire-toolbar">
+            <div class="sub-bar-inline">
+              <span>STAGE PRODUCTIONS &amp; EXHIBITION ARCHIVE</span>
+              <span id="stage-count-label">14 PRODUCTIONS</span>
+            </div>
+            <div class="genre-filter-strip" id="stage-genre-filters" role="tablist" aria-label="剧种筛选"></div>
+          </div>
+
+          <div class="stage-lookbook" id="stage-lookbook"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         02 / AWARDS & RESEARCH 奖项与研究 (Pages 26–29)
+         =================================================================== -->
+    <section class="chapter chapter-contrast" id="ch-02">
+      <div class="frame">
+        <div class="chapter-monument reveal">
+          <span class="ch-num">02</span>
+          <div class="ch-titles">
+            <h2>奖项与研究</h2>
+            <p>Awards · Selected &amp; Writing · Published</p>
+          </div>
+        </div>
+
+        <!-- Page 26: 奖项与发表论文双栏对仗 -->
+        <div class="awards-writing-split reveal">
+          <div>
+            <div class="sub-bar">
+              <span>AWARDS · SELECTED</span>
+              <span>04 ITEMS</span>
+            </div>
+            <div class="clean-rows" id="awards-rows"></div>
+          </div>
+
+          <div>
+            <div class="sub-bar">
+              <span>WRITING · PUBLISHED</span>
+              <span>03 ITEMS</span>
+            </div>
+            <div class="writing-cards" id="writing-cards"></div>
+          </div>
+        </div>
+
+        <!-- Pages 27–28: 硕士毕业论文摘要与四章大纲架构 -->
+        <div class="thesis-panel reveal" id="thesis-root"></div>
+
+        <!-- Page 29: 《场景设计与舞台灯光》第十版 46万字独立翻译 -->
+        <div class="translation-panel reveal" id="translation-root"></div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         03 / SCULPTURE & INSTALLATION 雕塑与装置 (Pages 30–37)
+         =================================================================== -->
+    <section class="chapter" id="ch-03">
+      <div class="frame">
+        <div class="chapter-monument reveal">
+          <span class="ch-num">03</span>
+          <div class="ch-titles">
+            <h2>雕塑与装置</h2>
+            <p>Sculpture &amp; Installation</p>
+          </div>
+        </div>
+
+        <div class="sculpture-wing" id="sculpture-root"></div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         04 / PAINTING & SKETCH 绘画与速写 (Pages 38–39)
+         =================================================================== -->
+    <section class="chapter chapter-contrast" id="ch-04">
+      <div class="frame">
+        <div class="chapter-monument reveal">
+          <span class="ch-num">04</span>
+          <div class="ch-titles">
+            <h2>绘画与速写</h2>
+            <p>Painting, Sketch &amp; Digital Illustration</p>
+          </div>
+        </div>
+
+        <div class="drawing-wall" id="drawing-root"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 极简展签页脚 -->
+  <footer class="colophon-footer">
+    <div class="frame footer-row">
+      <div class="footer-left">
+        <strong>杨于衡 &nbsp;YANG YUHENG</strong>
+        <span>STAGE DESIGN · RESEARCH · SCULPTURE</span>
+      </div>
+      <div class="footer-right">
+        <a href="assets/Yuheng-Yang-Portfolio.pdf" target="_blank" rel="noopener">PORTFOLIO (39P PDF) ↗</a>
+        <a href="assets/Aoyu-Design-Iterations-2026.pdf" target="_blank" rel="noopener">AOYU ITERATIONS (7P PDF) ↗</a>
+        <span>GUANGZHOU · 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 无边框电影级全屏灯箱 Cinema Lightbox -->
+  <div class="cinema-lightbox" id="cinema-lightbox" hidden aria-hidden="true">
+    <div class="cinema-hud">
+      <div class="cinema-meta">
+        <span class="cinema-idx" id="cinema-idx">01 / 01</span>
+        <span class="cinema-title" id="cinema-title"></span>
+      </div>
+      <div class="cinema-actions">
+        <button type="button" class="cinema-btn" id="cinema-zoom">ZOOM +</button>
+        <button type="button" class="cinema-btn" id="cinema-close">CLOSE [ESC]</button>
+      </div>
+    </div>
+
+    <div class="cinema-stage" id="cinema-stage">
+      <button type="button" class="cinema-arrow cinema-prev" id="cinema-prev" aria-label="上一张">←</button>
+      <img id="cinema-img" src="" alt="" />
+      <button type="button" class="cinema-arrow cinema-next" id="cinema-next" aria-label="下一张">→</button>
+    </div>
+
+    <div class="cinema-strip" id="cinema-strip"></div>
+  </div>
+
+  <script src="gallery-data.js"></script>
+  <script src="portfolio-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

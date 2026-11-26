@@ -1,0 +1,1408 @@
+/* ============================================================================
+   YANG YUHENG PORTFOLIO · MONOLITH SPATIAL GALLERY SYSTEM
+   Pure Obsidian Void (#060709) × Stark Platinum (#F2F5F8) × Portfolio Ice (#94B8DC)
+   Sharp architectural hairlines · Zero rounded cards · Monumental italic numerals
+   ============================================================================ */
+
+:root {
+  --void: #060709;
+  --void-contrast: #0b0d12;
+  --panel: #10131a;
+  --panel-hover: #151922;
+  --platinum: #f2f5f8;
+  --silver: #a2acb9;
+  --dim: #5d6675;
+  --ice: #94b8dc;
+  --ice-bright: #b8d6f4;
+  --ice-dim: rgba(148, 184, 220, 0.14);
+  --line: rgba(242, 245, 248, 0.11);
+  --line-strong: rgba(242, 245, 248, 0.26);
+  --font-display: "Syne", "Noto Sans SC", sans-serif;
+  --font-editorial: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", Consolas, monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 60px;
+  background: var(--void);
+  color: var(--platinum);
+}
+
+body {
+  margin: 0;
+  background: var(--void);
+  color: var(--platinum);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.frame {
+  width: min(1380px, calc(100% - 56px));
+  margin-inline: auto;
+}
+
+/* 滚动渐显动效 */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==================== 顶部建筑坐标导航栏 HUD ==================== */
+.hud-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 58px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background: rgba(6, 7, 9, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+
+.hud-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.hud-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--ice);
+}
+
+.hud-name em {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dim);
+  margin-left: 6px;
+}
+
+.hud-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.hud-link {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--dim);
+  padding: 18px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.hud-link span {
+  color: var(--ice);
+  margin-right: 4px;
+}
+
+.hud-link:hover,
+.hud-link.active {
+  color: var(--platinum);
+  border-bottom-color: var(--ice);
+}
+
+.hud-pdf-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  padding: 7px 14px;
+  border: 1px solid var(--line-strong);
+  color: var(--ice-bright);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.hud-pdf-link:hover {
+  background: var(--platinum);
+  color: var(--void);
+  border-color: var(--platinum);
+}
+
+/* ==================== 00 / PROLOGUE 序幕与个人信息 ==================== */
+.prologue {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: 96px 0 56px;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.prologue-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.backdrop-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transform: scale(1.06);
+  filter: saturate(0.75) brightness(0.38);
+  transition: opacity 2.2s ease, transform 7s ease;
+}
+
+.backdrop-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.backdrop-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(6, 7, 9, 0.2) 0%, rgba(6, 7, 9, 0.88) 78%),
+    linear-gradient(to bottom, rgba(6, 7, 9, 0.55) 0%, rgba(6, 7, 9, 0.25) 40%, var(--void) 98%);
+}
+
+.prologue-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: calc(100svh - 152px);
+}
+
+.prologue-top-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.2em;
+  color: var(--silver);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 14px;
+}
+
+.prologue-hero-type {
+  margin: auto 0;
+  padding: 56px 0 44px;
+}
+
+.display-word {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.3rem, 9.2vw, 8.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--platinum);
+}
+
+.discipline-line {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: clamp(11px, 1.2vw, 13.5px);
+  letter-spacing: 0.28em;
+  color: var(--ice);
+}
+
+.artist-signature {
+  margin-top: 32px;
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.sig-zh {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+}
+
+.sig-en {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  color: var(--silver);
+}
+
+/* Page 02 个人信息四行极简表 */
+.personal-ledger-wrap {
+  border-top: 1px solid var(--line-strong);
+  padding-top: 18px;
+}
+
+.ledger-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ice);
+  margin-bottom: 14px;
+}
+
+.personal-ledger {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.ledger-cell {
+  padding: 18px 20px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(16, 19, 26, 0.58);
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ledger-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ledger-zh {
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--platinum);
+}
+
+.ledger-en {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ice);
+}
+
+.ledger-desc {
+  font-size: 13px;
+  color: var(--silver);
+  line-height: 1.6;
+}
+
+.ledger-desc-en {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dim);
+}
+
+/* ==================== 章节纪念碑式标题 (01 / 02 / 03 / 04) ==================== */
+.chapter {
+  padding: 120px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.chapter-contrast {
+  background: var(--void-contrast);
+}
+
+.chapter-monument {
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  padding-bottom: 36px;
+  margin-bottom: 56px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.ch-num {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 600;
+  font-size: clamp(4.2rem, 8vw, 7.2rem);
+  line-height: 0.8;
+  color: var(--platinum);
+}
+
+.ch-titles h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.ch-titles p {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2vw, 1.65rem);
+  color: var(--ice);
+  margin-top: 4px;
+}
+
+.sub-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ice);
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line-strong);
+  margin-bottom: 20px;
+}
+
+/* ==================== 01 / 剧目矩阵 & 深度专章 & 剧照画廊 ==================== */
+.matrix-block {
+  margin-bottom: 88px;
+}
+
+.project-matrix {
+  border-top: 1px solid var(--line);
+}
+
+.matrix-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 130px;
+  align-items: baseline;
+  gap: 20px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s, padding-left 0.2s;
+}
+
+.matrix-row:hover {
+  background: rgba(148, 184, 220, 0.04);
+  padding-left: 10px;
+}
+
+.m-zh {
+  font-weight: 500;
+  color: var(--platinum);
+}
+
+.m-works {
+  color: var(--silver);
+  font-size: 14px;
+}
+
+.m-en {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--ice);
+  text-align: right;
+}
+
+/* 重点剧目专章 Monograph */
+.monograph-block {
+  margin-bottom: 96px;
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+}
+
+.mono-hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  border-bottom: 1px solid var(--line);
+}
+
+.mono-visual {
+  position: relative;
+  aspect-ratio: 16 / 9.5;
+  background: #030406;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.mono-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mono-visual:hover img {
+  transform: scale(1.035);
+}
+
+.mono-info {
+  padding: 36px 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid var(--line);
+}
+
+.mono-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ice);
+  margin-bottom: 12px;
+}
+
+.mono-title-zh {
+  font-size: clamp(1.5rem, 2.3vw, 2.1rem);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.mono-title-en {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--silver);
+  margin-bottom: 24px;
+}
+
+.mono-specs {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13.5px;
+  color: var(--silver);
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.mono-specs span strong {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11.5px;
+  color: var(--ice);
+  margin-right: 10px;
+}
+
+.mono-actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.sharp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--platinum);
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.sharp-btn:hover {
+  background: var(--platinum);
+  color: var(--void);
+  border-color: var(--platinum);
+}
+
+.sharp-btn-ice {
+  border-color: var(--ice);
+  color: var(--ice-bright);
+}
+
+.sharp-btn-ice:hover {
+  background: var(--ice);
+  color: var(--void);
+}
+
+.mono-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.mono-step {
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+}
+
+.mono-step:last-child {
+  border-right: none;
+}
+
+.mono-step-img {
+  aspect-ratio: 16 / 10;
+  background: #050608;
+  overflow: hidden;
+  cursor: zoom-in;
+  border-bottom: 1px solid var(--line);
+}
+
+.mono-step-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.mono-step-img:hover img {
+  transform: scale(1.05);
+}
+
+.mono-step-body {
+  padding: 20px 22px 24px;
+}
+
+.mono-step-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ice);
+  letter-spacing: 0.14em;
+}
+
+.mono-step-body h4 {
+  font-size: 15.5px;
+  font-weight: 500;
+  margin: 6px 0 2px;
+}
+
+.mono-step-en {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dim);
+  margin-bottom: 10px;
+}
+
+.mono-step-body p {
+  font-size: 13px;
+  color: var(--silver);
+  line-height: 1.65;
+}
+
+.mono-footnote {
+  padding: 14px 24px;
+  border-top: 1px solid var(--line);
+  font-size: 12.5px;
+  color: var(--dim);
+  background: rgba(6, 7, 9, 0.5);
+}
+
+/* 14部参创剧目与展览画廊 */
+.repertoire-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 16px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.sub-bar-inline {
+  display: flex;
+  gap: 18px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  color: var(--ice);
+}
+
+.genre-filter-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.genre-tab {
+  padding: 6px 13px;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--silver);
+  transition: all 0.2s;
+}
+
+.genre-tab:hover {
+  border-color: var(--line-strong);
+  color: var(--platinum);
+}
+
+.genre-tab.active {
+  background: var(--ice);
+  border-color: var(--ice);
+  color: var(--void);
+  font-weight: 500;
+}
+
+.stage-lookbook {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.stage-plate {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+.stage-plate:hover {
+  border-color: var(--ice);
+}
+
+.stage-plate-img {
+  position: relative;
+  aspect-ratio: 16 / 9.4;
+  overflow: hidden;
+  background: #040507;
+}
+
+.stage-plate-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.stage-plate:hover .stage-plate-img img {
+  transform: scale(1.045);
+}
+
+.plate-overlay-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 4px 10px;
+  background: rgba(6, 7, 9, 0.82);
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ice);
+}
+
+.plate-count-tag {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  padding: 4px 10px;
+  background: rgba(6, 7, 9, 0.84);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--platinum);
+}
+
+.stage-plate-caption {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.stage-plate-caption h3 {
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.stage-plate-caption span {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--silver);
+}
+
+/* ==================== 02 / 奖项与研究 ==================== */
+.awards-writing-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 72px;
+}
+
+.clean-rows {
+  border-top: 1px solid var(--line);
+}
+
+.award-row {
+  display: grid;
+  grid-template-columns: 84px 1fr 90px;
+  gap: 14px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.aw-cat {
+  font-weight: 500;
+  color: var(--platinum);
+}
+
+.aw-title {
+  color: var(--silver);
+  font-size: 14px;
+}
+
+.aw-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ice);
+  text-align: right;
+}
+
+.writing-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.writing-card {
+  padding: 18px 22px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.writing-card h4 {
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.writing-card span {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--dim);
+}
+
+/* 硕士论文面板 */
+.thesis-panel {
+  border: 1px solid var(--line-strong);
+  background: var(--panel);
+  padding: 40px;
+  margin-bottom: 48px;
+}
+
+.thesis-header {
+  padding-bottom: 24px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+
+.thesis-header h3 {
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 500;
+  margin: 8px 0 6px;
+}
+
+.thesis-header p {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.25rem;
+  color: var(--ice);
+}
+
+.thesis-bilingual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.thesis-bilingual p {
+  font-size: 13.8px;
+  color: var(--silver);
+  line-height: 1.8;
+}
+
+.thesis-keywords {
+  padding: 12px 16px;
+  border-left: 2px solid var(--ice);
+  background: rgba(148, 184, 220, 0.06);
+  font-size: 13px;
+  color: var(--platinum);
+  margin-bottom: 32px;
+}
+
+.thesis-outline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.outline-col {
+  padding: 20px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.outline-code {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ice);
+  letter-spacing: 0.14em;
+}
+
+.outline-col h4 {
+  font-size: 14.5px;
+  font-weight: 500;
+  margin: 8px 0 10px;
+}
+
+.outline-col ul {
+  padding-left: 16px;
+  margin: 0;
+  font-size: 12.8px;
+  color: var(--silver);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.methods-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.method-tag {
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ice);
+}
+
+/* 46万字专著翻译面板 */
+.translation-panel {
+  border: 1px solid var(--line-strong);
+  background: linear-gradient(135deg, #10131a 0%, #090b10 100%);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px;
+  align-items: center;
+}
+
+.trans-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  padding: 24px 0;
+}
+
+.trans-stat-num {
+  display: block;
+  font-family: var(--font-editorial);
+  font-size: clamp(2.4rem, 4vw, 3.6rem);
+  line-height: 1;
+  color: var(--platinum);
+  margin-bottom: 8px;
+}
+
+.trans-stat-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ice);
+}
+
+/* ==================== 03 / 雕塑与装置美术馆展厅 ==================== */
+.sculpture-wing {
+  display: flex;
+  flex-direction: column;
+  gap: 88px;
+}
+
+.sculp-exhibit {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 44px;
+  align-items: start;
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sculp-exhibit:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.sculp-main-stage {
+  position: relative;
+  background: #040507;
+  border: 1px solid var(--line-strong);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.sculp-main-stage img {
+  width: 100%;
+  max-height: 540px;
+  object-fit: contain;
+  margin: 0 auto;
+  background: #050608;
+  transition: transform 0.6s ease;
+}
+
+.sculp-main-stage:hover img {
+  transform: scale(1.025);
+}
+
+.sculp-thumbs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.sculp-mini {
+  width: 72px;
+  height: 56px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  opacity: 0.6;
+  cursor: pointer;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.sculp-mini:hover,
+.sculp-mini.active {
+  opacity: 1;
+  border-color: var(--ice);
+}
+
+.museum-plaque {
+  padding: 6px 0;
+}
+
+.plaque-index {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ice);
+  margin-bottom: 10px;
+}
+
+.plaque-title-zh {
+  font-size: clamp(1.55rem, 2.4vw, 2.1rem);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.plaque-title-en {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 1.35rem;
+  color: var(--silver);
+  margin-bottom: 22px;
+}
+
+.plaque-specs {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13.5px;
+}
+
+.plaque-specs span strong {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--ice);
+  display: inline-block;
+  width: 92px;
+}
+
+.plaque-statement-zh {
+  font-size: 14px;
+  color: var(--platinum);
+  line-height: 1.85;
+  margin-bottom: 14px;
+}
+
+.plaque-statement-en {
+  font-size: 13px;
+  color: var(--dim);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+/* ==================== 04 / 绘画与速写展墙 ==================== */
+.drawing-wall {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 28px;
+}
+
+.drawing-frame {
+  grid-column: span 4;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  display: flex;
+  flex-direction: column;
+  cursor: zoom-in;
+  transition: border-color 0.25s;
+}
+
+.drawing-frame.wide {
+  grid-column: span 6;
+}
+
+.drawing-frame:hover {
+  border-color: var(--ice);
+}
+
+.drawing-canvas {
+  aspect-ratio: 4 / 3.4;
+  background: #050608;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawing-canvas img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s ease;
+}
+
+.drawing-frame:hover .drawing-canvas img {
+  transform: scale(1.04);
+}
+
+.drawing-label {
+  padding: 18px 20px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.drawing-label h3 {
+  font-size: 16.5px;
+  font-weight: 500;
+}
+
+.drawing-label .dr-en {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 14.5px;
+  color: var(--silver);
+}
+
+.drawing-label .dr-meta {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ice);
+}
+
+/* ==================== 页脚 ==================== */
+.colophon-footer {
+  padding: 40px 0;
+  background: #040507;
+}
+
+.footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  color: var(--dim);
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-left strong {
+  color: var(--platinum);
+  font-weight: 500;
+}
+
+.footer-right {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-right a:hover {
+  color: var(--ice-bright);
+}
+
+/* ==================== 无边框电影级灯箱 ==================== */
+.cinema-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(3, 4, 6, 0.97);
+  display: flex;
+  flex-direction: column;
+}
+
+.cinema-lightbox[hidden] {
+  display: none !important;
+}
+
+.cinema-hud {
+  height: 58px;
+  padding: 0 28px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.cinema-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.cinema-idx {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ice);
+  letter-spacing: 0.14em;
+}
+
+.cinema-title {
+  font-size: 13.5px;
+  color: var(--silver);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cinema-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.cinema-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--platinum);
+}
+
+.cinema-btn:hover {
+  background: var(--platinum);
+  color: var(--void);
+}
+
+.cinema-stage {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 24px 72px;
+}
+
+.cinema-stage img {
+  max-height: 78vh;
+  max-width: 100%;
+  object-fit: contain;
+  transition: transform 0.25s ease;
+}
+
+.cinema-stage.is-zoomed img {
+  max-height: none;
+  max-width: none;
+  transform: scale(1.4);
+  cursor: zoom-out;
+}
+
+.cinema-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--line-strong);
+  background: rgba(6, 7, 9, 0.8);
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--platinum);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cinema-arrow:hover {
+  border-color: var(--ice);
+  color: var(--ice);
+}
+
+.cinema-prev { left: 20px; }
+.cinema-next { right: 20px; }
+
+.cinema-strip {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  overflow-x: auto;
+  border-top: 1px solid var(--line);
+}
+
+.cinema-thumb {
+  width: 58px;
+  height: 40px;
+  object-fit: cover;
+  opacity: 0.4;
+  border: 1px solid transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.cinema-thumb.active {
+  opacity: 1;
+  border-color: var(--ice);
+}
+
+/* ==================== 响应式适配 ==================== */
+@media (max-width: 1060px) {
+  .personal-ledger {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .mono-hero,
+  .awards-writing-split,
+  .thesis-bilingual,
+  .translation-panel,
+  .sculp-exhibit {
+    grid-template-columns: 1fr;
+  }
+
+  .mono-info {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .thesis-outline-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .drawing-frame,
+  .drawing-frame.wide {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 720px) {
+  .frame {
+    width: calc(100% - 32px);
+  }
+
+  .hud-bar {
+    padding: 0 16px;
+  }
+
+  .hud-name em,
+  .hud-pdf-link {
+    display: none;
+  }
+
+  .hud-nav {
+    gap: 12px;
+  }
+
+  .hud-link span {
+    display: none;
+  }
+
+  .personal-ledger,
+  .stage-lookbook,
+  .thesis-outline-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .matrix-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .m-en {
+    text-align: left;
+  }
+
+  .drawing-frame,
+  .drawing-frame.wide {
+    grid-column: span 12;
+  }
+
+  .cinema-stage {
+    padding: 16px;
+  }
+}
